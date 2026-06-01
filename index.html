@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Scroll Reveal</title>
+  <link rel="stylesheet" href="index.css">
+  <style>
+    body{
+        margin:0;
+        overflow-x:hidden;
+    }
+
+    .space{
+        height:100vh;
+    }
+    .title{
+        position:absolute;
+        top:80px;
+        left:0;
+        width:100%;
+
+        text-align:center;
+        font-size:64px;
+        font-weight:700;
+        letter-spacing:4px;
+        color:white;
+
+        opacity:0;
+        transform:translateY(-40px);
+
+        z-index:10;
+    }
+
+    .animation-section{
+        height:300vh;
+        position:relative;
+    }
+
+    .sticky-wrap{
+        position:sticky;
+        top:0;
+
+        height:100vh;
+        width:100%;
+
+        overflow:hidden;
+
+        background:linear-gradient(
+            180deg,
+            rgb(221, 255, 141),
+            #676767
+        );
+    }
+
+    /* title */
+    .title{
+        position:absolute;
+        top:90px;
+        width:100%;
+        text-align:center;
+        font-size:64px;
+        color:white;
+        z-index:10;
+    }
+
+
+
+    /* tulisan jepang */
+    .title{
+        position:fixed;
+        top:90px;
+        width:100%;
+        text-align:center;
+
+        font-size:64px;
+        color:white;
+        font-weight:700;
+        letter-spacing:4px;
+
+        opacity:.9;
+        z-index:10;
+    }
+
+    .item{
+        width:250px;
+        position:fixed;
+        top:50%;
+        opacity:0;
+        transition:all .5s ease;
+    }
+
+    /* posisi */
+    .left{
+        left:10%;
+        transform:translateX(-150px) translateY(-50%);
+    }
+
+    .center{
+        left:50%;
+        transform:translate(-50%, -50%) scale(.7);
+    }
+
+    .right{
+        right:10%;
+        transform:translateX(150px) translateY(-50%);
+    }
+  </style>
+</head>
+<body>
+
+
+<section class="animation-section" id="animation">
+
+  <div class="sticky-wrap">
+    <h1 class="title">ゼンレスゾーンゼロ</h1>
+
+    <img src="img/1.png" class="item left">
+    <img src="img/2.png" class="item center">
+    <img src="img/3.png" class="item right">
+  </div>
+
+</section>
+
+
+<script>
+const section = document.getElementById("animation");
+
+const leftImg = document.querySelector(".left");
+const centerImg = document.querySelector(".center");
+const rightImg = document.querySelector(".right");
+
+function clamp(value, min, max){
+  return Math.min(Math.max(value, min), max);
+}
+
+function range(value, start, end){
+  return clamp((value - start) / (end - start), 0, 1);
+}
+
+function animate(){
+
+  const rect = section.getBoundingClientRect();
+
+  const scrollable = section.offsetHeight - window.innerHeight;
+
+  const p = clamp(
+    (-rect.top) / scrollable,
+    0,
+    1
+  );
+
+  /* kiri */
+  const leftP = range(p, 0.10, 0.30);
+  leftImg.style.opacity = leftP;
+  leftImg.style.transform =
+    `translateX(${(-150 + leftP * 150)}px) translateY(-50%)`;
+
+  /* tengah */
+  const centerP = range(p, 0.35, 0.55);
+  centerImg.style.opacity = centerP;
+  centerImg.style.transform =
+    `translate(-50%, -50%) scale(${0.7 + centerP * 0.3})`;
+
+  /* kanan */
+  const rightP = range(p, 0.60, 0.80);
+  rightImg.style.opacity = rightP;
+  rightImg.style.transform =
+    `translateX(${(150 - rightP * 150)}px) translateY(-50%)`;
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+</body>
+</html>

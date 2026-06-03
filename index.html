@@ -1,176 +1,61 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>Scroll Reveal</title>
-  <link rel="stylesheet" href="index.css">
-  <style>
-    body{
-        margin:0;
-        overflow-x:hidden;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zenless Zone Zero</title>
 
-    .space{
-        height:100vh;
-    }
-    .title{
-        position:absolute;
-        top:80px;
-        left:0;
-        width:100%;
-
-        text-align:center;
-        font-size:64px;
-        font-weight:700;
-        letter-spacing:4px;
-        color:white;
-
-        opacity:0;
-        transform:translateY(-40px);
-
-        z-index:10;
-    }
-
-    .animation-section{
-        height:300vh;
-        position:relative;
-    }
-
-    .sticky-wrap{
-        position:sticky;
-        top:0;
-
-        height:100vh;
-        width:100%;
-
-        overflow:hidden;
-
-        background:linear-gradient(
-            180deg,
-            rgb(221, 255, 141),
-            #676767
-        );
-    }
-
-    /* title */
-    .title{
-        position:absolute;
-        top:90px;
-        width:100%;
-        text-align:center;
-        font-size:64px;
-        color:white;
-        z-index:10;
-    }
-
-
-
-    /* tulisan jepang */
-    .title{
-        position:fixed;
-        top:90px;
-        width:100%;
-        text-align:center;
-
-        font-size:64px;
-        color:white;
-        font-weight:700;
-        letter-spacing:4px;
-
-        opacity:.9;
-        z-index:10;
-    }
-
-    .item{
-        width:250px;
-        position:fixed;
-        top:50%;
-        opacity:0;
-        transition:all .5s ease;
-    }
-
-    /* posisi */
-    .left{
-        left:10%;
-        transform:translateX(-150px) translateY(-50%);
-    }
-
-    .center{
-        left:50%;
-        transform:translate(-50%, -50%) scale(.7);
-    }
-
-    .right{
-        right:10%;
-        transform:translateX(150px) translateY(-50%);
-    }
-  </style>
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
+    <!-- KARAKTER GLOBAL -->
 
+    <div id="character-layer">
 
-<section class="animation-section" id="animation">
+        <img src="img/1.png" class="item left">
+        <img src="img/2.png" class="item center">
+        <img src="img/3.png" class="item right">
 
-  <div class="sticky-wrap">
-    <h1 class="title">ゼンレスゾーンゼロ</h1>
+    </div>
 
-    <img src="img/1.png" class="item left">
-    <img src="img/2.png" class="item center">
-    <img src="img/3.png" class="item right">
-  </div>
+    <!-- SECTION 1 -->
 
-</section>
+    <section class="animation-section" id="animation">
 
+        <div class="sticky-wrap">
 
-<script>
-const section = document.getElementById("animation");
+            <h1 class="title">
+                ゼンレスゾーンゼロ
+            </h1>
 
-const leftImg = document.querySelector(".left");
-const centerImg = document.querySelector(".center");
-const rightImg = document.querySelector(".right");
+        </div>
 
-function clamp(value, min, max){
-  return Math.min(Math.max(value, min), max);
-}
+    </section>
 
-function range(value, start, end){
-  return clamp((value - start) / (end - start), 0, 1);
-}
+    <!-- SECTION 2 -->
 
-function animate(){
+    <section class="detail-section" id="detail">
+        <div class="detail-sticky">
 
-  const rect = section.getBoundingClientRect();
+            <div class="yellow-side"></div>
 
-  const scrollable = section.offsetHeight - window.innerHeight;
+            <div class="info">
+                <div class="label">
+                    COMBAT RECORD
+                </div>
 
-  const p = clamp(
-    (-rect.top) / scrollable,
-    0,
-    1
-  );
+                <h1>Trigger</h1>
 
-  /* kiri */
-  const leftP = range(p, 0.10, 0.30);
-  leftImg.style.opacity = leftP;
-  leftImg.style.transform =
-    `translateX(${(-150 + leftP * 150)}px) translateY(-50%)`;
+                <p>
+                    A nigh-blind sniper and frontline survivor of the old capital's fall, Trigger is a member of Obol Squad, where she uses her array of close-range, sharpshooting and stealth skills obtained from her time at Lyre Squad along with an ability gained from her corrupted eyesight dubbed 'Ether Vision' and heightened senses in hopes of finding the true culprits behind Eridu's fall.
+                    Outside of being a soldier specializing in killing targets from afar, Trigger has a caring side. Her desire to protect those near to her has a notable effect on her psyche, and she also gets along well with children. Also, she likes red bean buns.
+                    Trigger wears a mask with two lights at the bottom two corners that light up depending on her emotions.
 
-  /* tengah */
-  const centerP = range(p, 0.35, 0.55);
-  centerImg.style.opacity = centerP;
-  centerImg.style.transform =
-    `translate(-50%, -50%) scale(${0.7 + centerP * 0.3})`;
+                </p>
+            </div>
 
-  /* kanan */
-  const rightP = range(p, 0.60, 0.80);
-  rightImg.style.opacity = rightP;
-  rightImg.style.transform =
-    `translateX(${(150 - rightP * 150)}px) translateY(-50%)`;
-
-  requestAnimationFrame(animate);
-}
-
-animate();
-</script>
+        </div>
+    </section>
+    <script src="scripts.js"></script>
 </body>
 </html>

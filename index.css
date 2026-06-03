@@ -1,0 +1,172 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    overflow-x:hidden;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+/* ================================= */
+/* SECTION 1 */
+/* ================================= */
+
+.animation-section{
+    height:300vh;
+    position:relative;
+}
+
+.sticky-wrap{
+    position: sticky;
+    top: 0;
+
+    height: 100vh;
+    width: 100%;
+
+    overflow: hidden;
+
+    background:
+
+        radial-gradient(
+            circle at bottom left,
+            rgba(0, 255, 255, 0.2),
+            transparent 40%
+        ),
+        linear-gradient(
+            180deg,
+            #1b1b1b 0%,
+            #111111 50%,
+            #000000 100%
+        );
+}
+
+.sticky-wrap::before{
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background:
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 60px,
+            rgba(255,255,255,.03) 61px,
+            rgba(255,255,255,.03) 62px
+        );
+
+    pointer-events:none;
+}
+
+.title{
+    position:fixed;
+
+    top:70px;
+    left:0;
+
+    width:100%;
+
+    text-align:center;
+
+    font-size:64px;
+    font-weight:700;
+    letter-spacing:4px;
+
+    color:white;
+
+    z-index:10;
+}
+
+.item{
+    width:250px;
+    position:fixed;
+    top:50%;
+    opacity:0;
+    z-index:99999;
+    pointer-events:none;
+    transition:all .5s ease;
+}
+
+.left{
+    left:10%;
+}
+
+.center{
+    left:50%;
+}
+
+.right{
+    right:10%;
+}
+
+/* ================================= */
+/* SECTION 2 */
+/* ================================= */
+
+.detail-section{
+    height:200vh;
+    position:relative;
+    transition:all .5s ease;
+}
+
+.detail-sticky{
+    position:sticky;
+    top:0;
+
+    height:100vh;
+
+    overflow:visible; /* ubah dari hidden */
+
+    background:#f0f0f0;
+}
+
+.yellow-side{
+    position:absolute;
+    left:0;
+    top:0;
+
+    width:45%;
+    height:100%;
+    z-index: 1;
+    background:#dcb25f;
+
+    clip-path:polygon(
+        0 0,
+        100% 0,
+        75% 100%,
+        0 100%
+    );
+}
+
+.info{
+    position:absolute;
+
+    right:120px;
+    top:120px;
+
+    width:600px;
+
+    opacity:0;
+    transition:all .5s ease;
+    transform:translateX(200px);
+    z-index: 10;
+}
+
+
+.label{
+    font-size:14px;
+    letter-spacing:3px;
+    margin-bottom:20px;
+}
+
+.info h1{
+    font-size:80px;
+    margin-bottom:20px;
+}
+
+.info p{
+    text-align: justify;
+    font-size: 20px;
+    line-height:1.8;
+}

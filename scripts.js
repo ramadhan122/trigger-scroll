@@ -4,6 +4,9 @@ const animationSection =
 const detailSection =
     document.getElementById("detail");
 
+const section3 =
+    document.querySelector(".section-3");
+
 const leftImg =
     document.querySelector(".left");
 
@@ -15,7 +18,6 @@ const rightImg =
 
 const info =
     document.querySelector(".info");
-
 
 
 function clamp(value,min,max){
@@ -34,7 +36,6 @@ function range(value,start,end){
 }
 
 
-
 function animate(){
 
     const rect =
@@ -50,7 +51,9 @@ function animate(){
         1
     );
 
+    /* ====================== */
     /* SECTION 1 */
+    /* ====================== */
 
     if(p < 0.95){
 
@@ -80,60 +83,63 @@ function animate(){
     }
 
 
-/* ====================== */
-/* SECTION 2 */
-/* ====================== */
+    /* ====================== */
+    /* SECTION 2 */
+    /* ====================== */
 
-const detailRect =
-    detailSection.getBoundingClientRect();
+    const detailRect =
+        detailSection.getBoundingClientRect();
 
-const detailScrollable =
-    detailSection.offsetHeight -
-    window.innerHeight;
+    const detailScrollable =
+        detailSection.offsetHeight -
+        window.innerHeight;
 
-const detailP = clamp(
-    (-detailRect.top) /
-    detailScrollable,
-    0,
-    1
-);
+    const detailP = clamp(
+        (-detailRect.top) /
+        detailScrollable,
+        0,
+        1
+    );
 
-/* gambar 2 & 3 hilang begitu
-   section 1 selesai */
+    // gambar tengah & kanan hilang
+    if(p > 0.95){
 
-if(p > 0.95){
+        centerImg.style.opacity = 0;
+        rightImg.style.opacity = 0;
 
-    centerImg.style.opacity = 0;
-    rightImg.style.opacity = 0;
+    }
 
-}
+    if(detailRect.top <= 0){
 
-if(detailRect.top <= 0){
+        const section3Rect =
+            section3.getBoundingClientRect();
 
-    leftImg.style.opacity = 1;
+        // mulai saat section 3 menyentuh bawah viewport
+        const fadeP = clamp(
+            (window.innerHeight - section3Rect.top) /
+            window.innerHeight,
+            0,
+            1
+        );
 
-    const moveX =
-        250 * detailP;
+        leftImg.style.opacity =
+            1 - fadeP;
 
-    const scale =
-        1 + detailP;
+        leftImg.style.transform =
+        `
+        translateX(${-600 * fadeP}px)
+        translateY(-50%)
+        scale(${1.5 - fadeP * 0.2})
+        `;
 
-    leftImg.style.left = "100px";
+        info.style.opacity =
+            detailP;
 
-    leftImg.style.transform =
-    `
-    translateY(-50%)
-    scale(1.5)
-    `;
+        info.style.transform =
+            `translateX(${200 - detailP * 200}px)`;
+    }
 
-    info.style.opacity =
-        detailP;
-
-    info.style.transform =
-        `translateX(${200 - detailP * 200}px)`;
-}
     requestAnimationFrame(animate);
 }
-
 
 animate();
